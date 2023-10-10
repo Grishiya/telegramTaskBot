@@ -22,19 +22,19 @@ public class NotificationTask {
     public NotificationTask() {
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getChatId() {
+    public long getChatId() {
         return chatId;
     }
 
-    public void setChatId(Integer chatId) {
+    public void setChatId(long chatId) {
         this.chatId = chatId;
     }
 
@@ -57,16 +57,13 @@ public class NotificationTask {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (o == null || getClass() != o.getClass()) return false;
         NotificationTask that = (NotificationTask) o;
-        return Objects.equals(chatId, that.chatId)
-                && Objects.equals(notification, that.notification)
-                && Objects.equals(sendDate, that.sendDate);
+        return chatId == that.chatId && Objects.equals(notification, that.notification) && Objects.equals(sendDate, that.sendDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, chatId, notification, sendDate);
+        return Objects.hash(chatId, notification, sendDate);
     }
 }
