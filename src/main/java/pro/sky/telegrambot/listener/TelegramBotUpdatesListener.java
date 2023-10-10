@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pro.sky.telegrambot.service.TelegramBotService;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -19,6 +20,8 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
 
     @Autowired
     private TelegramBot telegramBot;
+    @Autowired
+    private TelegramBotService telegramBotService;
 
     @PostConstruct
     public void init() {
@@ -33,11 +36,8 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
             if (update.message().text().startsWith("/start")) {
                 SendMessage message = new SendMessage(update.message().chat().id(),"Привет");
                 var result = telegramBot.execute(message);
-                if (result.isOk()) {
-                    logger.debug("Сообщение пришло");
-                } else {
-                    logger.warn("Сообщение не пришло");
-                }
+            } else if (update.message().text().startsWith("/add")) {
+                telegramBotService.addTask(update.message());
             }
         });
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
